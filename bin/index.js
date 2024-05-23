@@ -2,7 +2,9 @@
 
 import { Command } from "commander";
 import chalk from "chalk";
-import config from "../package.json" assert { type: "json" };
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+import fs from "fs-extra";
 
 const program = new Command();
 
@@ -27,6 +29,10 @@ program.on("--help", () => {
   );
   console.log();
 });
+
+const config = fs.readJSONSync(
+  path.resolve(dirname(fileURLToPath(import.meta.url)), "../package.json")
+);
 
 program
   // 说明版本
